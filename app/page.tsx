@@ -6,14 +6,13 @@ export default function HomePage() {
     <main className="page-root">
       <header className="site-header">
         <a className="brand" href="#top" aria-label="LunarFan home">
-          <Image src="/logo.png" alt="LunarFan logo" width={132} height={40} priority />
+          <Image className="header-logo" src="/logo.png" alt="LunarFan logo" width={912} height={507} priority />
         </a>
         <HeaderActions />
       </header>
 
       <section id="top" className="panel hero-panel" aria-label="Hero section">
         <div className="hero-inner">
-          <Image className="hero-logo" src="/logo.png" alt="LunarFan logo mark" width={360} height={108} priority />
           <h1>LunarFan</h1>
           <p>遇見你最想追隨的創作者。</p>
         </div>
@@ -53,7 +52,10 @@ export default function HomePage() {
         </div>
 
         <footer className="site-footer">
-          <span>contact.us@lunar.fan</span>
+          <span>聯絡我們: </span>
+          <a className="contact-link" href="mailto:contact.us@lunar.fan">
+            contact.us@lunar.fan
+          </a>
         </footer>
       </section>
     </main>

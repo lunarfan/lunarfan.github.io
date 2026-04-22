@@ -57,6 +57,11 @@ button {
   align-items: center;
 }
 
+.header-logo {
+  width: auto;
+  height: clamp(32px, 5vw, 44px);
+}
+
 .auth-actions {
   display: flex;
   gap: 1rem;
@@ -111,12 +116,6 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.hero-logo {
-  width: clamp(180px, 25vw, 360px);
-  height: auto;
-  margin-bottom: 1rem;
 }
 
 .hero-inner h1 {
@@ -204,6 +203,16 @@ button {
   padding-bottom: 0.4rem;
   color: var(--text-muted);
   font-size: 0.95rem;
+}
+
+.contact-link {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.16rem;
+}
+
+.contact-link:hover {
+  color: #cfeaff;
 }
 
 @media (max-width: 980px) {
