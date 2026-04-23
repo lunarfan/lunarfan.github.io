@@ -10,3 +10,8 @@ pnpm-debug.log*
 !.env.example
 
 .codex
+
+# Keep split repos and phase2 specs out of lunarfan.github.io
+split-repos/
+docs/phase2/
+spec/
