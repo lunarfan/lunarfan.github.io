@@ -12,6 +12,7 @@ import TutorialOverlay from './TutorialOverlay';
 
 type TargetKey =
   | 'header-register'
+  | 'header-login'
   | 'register-email'
   | 'register-password'
   | 'register-retype-password'
@@ -41,7 +42,6 @@ export default function LunarfanDemoExperience() {
   const [chatMessages, setChatMessages] = useState(() => buildChatMessages().slice(0, 30));
   const [chatQueue] = useState(() => buildChatMessages().slice(30));
   const [chatInput, setChatInput] = useState('');
-  const [hasSentMessage, setHasSentMessage] = useState(false);
 
   const targetsRef = useRef<Partial<Record<TargetKey, HTMLElement | null>>>({});
   const queueTimerRef = useRef<number | null>(null);
@@ -59,6 +59,7 @@ export default function LunarfanDemoExperience() {
     },
     []
   );
+
 
   const targetElement = useMemo(() => {
     switch (currentStep) {
@@ -108,7 +109,6 @@ export default function LunarfanDemoExperience() {
     setPostModalOpen(false);
     setAutoTranslate(false);
     setChatInput('');
-    setHasSentMessage(false);
     setConcertPost(buildPosts().concertPost);
     setDinnerPost(buildPosts().dinnerPost);
     setChatMessages(buildChatMessages().slice(0, 30));
@@ -244,7 +244,6 @@ export default function LunarfanDemoExperience() {
       }
     ]);
     setChatInput('');
-    setHasSentMessage(true);
     if (tutorialActive && currentStep === 'send-message') {
       nextStep();
     }
@@ -316,15 +315,15 @@ export default function LunarfanDemoExperience() {
               ))}
             </select>
           </label>
-          <div ref={registerTarget('header-register')}>
-            <HeaderActions
-              loggedIn={isLoggedIn}
-              registerLabel={t(uiText.register)}
-              loginLabel={t(uiText.login)}
-              onRegister={handleHeaderRegister}
-              onLogin={handleHeaderLogin}
-            />
-          </div>
+          <HeaderActions
+            loggedIn={isLoggedIn}
+            registerLabel={t(uiText.register)}
+            loginLabel={t(uiText.login)}
+            registerRef={registerTarget('header-register')}
+            loginRef={registerTarget('header-login')}
+            onRegister={handleHeaderRegister}
+            onLogin={handleHeaderLogin}
+          />
         </div>
       </header>
 
