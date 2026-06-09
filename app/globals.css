@@ -701,6 +701,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 40;
+  pointer-events: none;
 }
 
 .tutorial-mask {
@@ -750,6 +751,7 @@ button {
   position: fixed;
   z-index: 42;
   width: min(90vw, 420px);
+  pointer-events: auto;
   border-radius: 28px;
   padding: 1.2rem;
   background: linear-gradient(180deg, rgba(19, 55, 92, 0.98), rgba(11, 31, 53, 0.98));
