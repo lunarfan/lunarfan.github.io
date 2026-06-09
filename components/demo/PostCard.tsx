@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import type { Ref } from 'react';
 import type { DemoPost, Locale } from './mockData';
 
@@ -7,42 +8,42 @@ type PostCardProps = {
   post: DemoPost;
   locale: Locale;
   openSurfaceRef?: Ref<HTMLButtonElement>;
+  reactionAreaRef?: Ref<HTMLDivElement>;
   onOpen?: () => void;
   onReact?: (reactionId: string) => void;
   interactiveReactions?: boolean;
   openPostLabel: string;
 };
 
-export default function PostCard({ post, locale, openSurfaceRef, onOpen, onReact, interactiveReactions, openPostLabel }: PostCardProps) {
+export default function PostCard({ post, locale, openSurfaceRef, reactionAreaRef, onOpen, onReact, interactiveReactions, openPostLabel }: PostCardProps) {
   return (
-    <article className="post-card">
-      <div className="post-card-header">
-        <div>
-          <p className="post-card-author">{post.author}</p>
-          <p className="post-card-time">{post.timeLabel[locale]}</p>
+    <article className="fan-club-post-card">
+      <header className="fan-club-post-card-head">
+        <Image src="/Luna-Avatar.png" alt="Luna avatar" width={40} height={40} className="demo-post-avatar" />
+        <div className="fan-club-post-card-head-copy">
+          <strong>{post.author}</strong>
+          <span>{post.timeLabel[locale]}</span>
         </div>
-      </div>
-      <button ref={openSurfaceRef} type="button" className="post-card-open-surface" onClick={onOpen}>
-        <h3>{post.title[locale]}</h3>
-        <p className="post-card-body">{post.body[locale]}</p>
-        <span className="ghost-action post-card-open-hint">{openPostLabel}</span>
+      </header>
+
+      <button ref={openSurfaceRef} type="button" className="fan-club-post-card-content-trigger" onClick={onOpen}>
+        <h2>{post.title[locale]}</h2>
+        <div className="fan-club-post-card-preview">
+          <p>{post.body[locale]}</p>
+        </div>
+        <span className="fan-club-post-card-more">{openPostLabel}</span>
       </button>
-      <div className="post-card-footer">
-        <div className="post-reactions">
-          {post.reactions.map((reaction) => (
-            <button
-              key={reaction.id}
-              type="button"
-              className="reaction-chip"
-              onClick={() => onReact?.(reaction.id)}
-              disabled={!interactiveReactions}
-            >
+
+      <footer ref={reactionAreaRef} className="fan-club-post-reactions">
+        {post.reactions.map((reaction) => (
+          <span key={reaction.id} className="fan-club-post-reaction-item">
+            <button type="button" className="reaction-chip" onClick={() => onReact?.(reaction.id)} disabled={!interactiveReactions}>
               <span>{reaction.emoji}</span>
-              <span>{reaction.count}</span>
             </button>
-          ))}
-        </div>
-      </div>
+            <span className="fan-club-post-reaction-count">{reaction.count}</span>
+          </span>
+        ))}
+      </footer>
     </article>
   );
 }

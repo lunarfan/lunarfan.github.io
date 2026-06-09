@@ -413,15 +413,15 @@ export default function LunarfanDemoExperience() {
       ) : null}
 
       {screen === 'home-demo' ? appShell(
-        <section className="demo-post-feed feed-panel-like">
+        <section className="demo-post-feed feed-panel-like app-shell-main-panel">
           <div className="section-heading-row"><div><p className="section-kicker">Creator update</p><h2>{t(uiText.posts)}</h2></div></div>
           <PostCard post={concertPost} locale={locale} openSurfaceRef={registerTarget('first-post')} onOpen={handleOpenPost} openPostLabel={t(uiText.viewPost)} />
         </section>,
-        <div ref={registerTarget('my-fan-clubs')}><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
+        <div ref={registerTarget('my-fan-clubs')} className="app-shell-assistant-panel"><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
       ) : null}
 
       {screen === 'fan-club-demo' ? appShell(
-        <section className="fan-club-demo-main">
+        <section className="fan-club-demo-main app-shell-main-panel">
           <div className="fan-club-banner-card" style={{ backgroundImage: 'linear-gradient(rgba(10, 35, 62, 0.76), rgba(10, 35, 62, 0.9)), url(/Luna-Background.png)' }}>
             <div className="fan-club-hero">
               <Image src="/Luna-Avatar.png" alt="Luna avatar" width={96} height={96} className="fan-club-hero-avatar" />
@@ -438,16 +438,14 @@ export default function LunarfanDemoExperience() {
           </div>
           <div className="fan-club-post-stack">
             <PostCard post={concertPost} locale={locale} openPostLabel={t(uiText.viewPost)} />
-            <div ref={registerTarget('dinner-post-reactions')}>
-              <PostCard post={dinnerPost} locale={locale} onReact={handleDinnerReaction} interactiveReactions openPostLabel={t(uiText.viewPost)} />
-            </div>
+            <PostCard post={dinnerPost} locale={locale} reactionAreaRef={registerTarget('dinner-post-reactions')} onReact={handleDinnerReaction} interactiveReactions openPostLabel={t(uiText.viewPost)} />
           </div>
         </section>,
-        <div className="assistant-summary-card"><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
+        <div className="assistant-summary-card app-shell-assistant-panel"><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
       ) : null}
 
       {screen === 'chat-demo' ? appShell(
-        <div ref={registerTarget('chat-panel')}>
+        <div ref={registerTarget('chat-panel')} className="app-shell-main-panel">
           <ChatRoomView
             locale={locale}
             rooms={roomNames}
@@ -465,14 +463,13 @@ export default function LunarfanDemoExperience() {
             onSend={handleSendMessage}
           />
         </div>,
-        <div className="assistant-summary-card"><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
+        <div className="assistant-summary-card app-shell-assistant-panel"><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
       ) : null}
 
       <PostModal
         open={postModalOpen}
         post={concertPost}
         locale={locale}
-        modalRef={registerTarget('post-modal-reactions')}
         clubButtonRef={registerTarget('post-modal-club')}
         reactionsRef={registerTarget('post-modal-reactions')}
         onClose={() => setPostModalOpen(false)}

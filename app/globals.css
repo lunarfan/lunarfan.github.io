@@ -174,3 +174,103 @@ button { border: none; }
   .chat-message { max-width: 88%; }
   .chat-composer { grid-template-columns: 1fr; }
 }
+
+
+.app-shell-overlay { position: absolute; inset: 0; background: transparent; pointer-events: none; }
+.app-shell-content {
+  z-index: 1;
+  padding: 0rem 1.35rem 1.35rem 0rem;
+  margin-left: 86px;
+  margin-right: 86px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  min-height: 0;
+  overflow-y: auto;
+}
+.app-shell-body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(720px, 1fr) minmax(280px, 0.42fr);
+  gap: 1.1rem;
+}
+.app-shell-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 68px;
+  height: 100vh;
+  z-index: 24;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 20px 28px rgba(2,8,16,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  padding: 0.75rem 0.55rem;
+}
+.app-shell-sidebar-logo {
+  width: 204px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 0.72rem;
+  padding: 0.4rem;
+  border-radius: 8px;
+}
+.app-shell-sidebar-logo-main { width: 36px; min-width: 36px; max-width: 36px; height: auto; display: block; }
+.app-shell-sidebar-logo-label { opacity: 0; max-width: 0; overflow: hidden; white-space: nowrap; font-size: 18px; font-weight: 600; color: var(--text-primary); transform: translateX(-6px); transition: opacity .16s ease, max-width .16s ease, transform .16s ease; }
+.app-shell-sidebar:hover { width: 204px; }
+.app-shell-sidebar:hover .app-shell-sidebar-logo-label { opacity: 1; max-width: 160px; transform: translateX(0); }
+.app-shell-sidebar-nav-rail { width: 68px; flex: 1; overflow: hidden; transition: width .2s ease; }
+.app-shell-sidebar:hover .app-shell-sidebar-nav-rail { width: 204px; }
+.app-shell-sidebar-nav { width: 204px; display: flex; flex-direction: column; gap: 0.46rem; }
+.app-shell-nav-item {
+  width: calc(100% - 0.48rem);
+  margin-inline: 0.24rem;
+  min-height: 50px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  color: rgba(255,255,255,0.75);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.28rem;
+}
+.app-shell-nav-item-icon { width: 34px; min-width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; }
+.app-shell-nav-item-label { opacity: 0; max-width: 0; overflow: hidden; white-space: nowrap; font-size: 16px; font-weight: 600; transform: translateX(-6px); transition: opacity .16s ease, max-width .16s ease, transform .16s ease; }
+.app-shell-sidebar:hover .app-shell-nav-item-label { opacity: 1; max-width: 180px; transform: translateX(0); }
+.app-shell-nav-item.active { color: var(--cta-strong); }
+.app-shell-main-panel, .app-shell-assistant-panel {
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+}
+.app-shell-main-panel { position: relative; min-height: 0; padding: 0.95rem 0.95rem 0.95rem 0rem; }
+.app-shell-assistant-panel { display: flex; flex-direction: column; min-height: 0; padding: 0.92rem 0.8rem; }
+.my-fan-clubs-header { display: flex; align-items: center; justify-content: space-between; gap: 0.7rem; }
+.my-fan-clubs-header h2 { margin: 0; font-size: 18px; }
+.my-fan-clubs-create { position: relative; }
+.my-fan-clubs-list { margin-top: 0.72rem; display: flex; flex-direction: column; gap: 0.62rem; overflow-y: auto; min-height: 0; padding-right: 0.18rem; }
+.my-fan-clubs-item { border: 1px solid rgba(127,127,127,0.36); border-radius: 12px; background: rgba(7,26,46,0.72); padding: 0.5rem; display: flex; align-items: center; gap: 0.64rem; }
+.my-fan-clubs-avatar { flex-shrink: 0; }
+.my-fan-clubs-meta { min-width: 0; display: flex; flex-direction: column; gap: 0.16rem; }
+.my-fan-clubs-name { color: var(--text-primary); font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.my-fan-clubs-status { color: rgba(255,255,255,0.75); font-size: 14px; }
+.fan-club-post-card { border: 1px solid rgba(127,127,127,0.32); border-radius: 12px; background: rgba(9,31,54,0.82); padding: 0.7rem 0.75rem; height: 430px; display: flex; flex-direction: column; gap: 0.55rem; }
+.fan-club-post-card-head { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.62rem; }
+.fan-club-post-card-head-copy { min-width: 0; display: flex; flex-direction: column; gap: 0.08rem; }
+.fan-club-post-card-head-copy strong { font-size: 16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.fan-club-post-card-head-copy span { color: rgba(255,255,255,0.75); font-size: 14px; }
+.fan-club-post-card-content-trigger { width: 100%; border: none; background: transparent; color: inherit; text-align: left; padding: 0; cursor: pointer; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; flex: 1; min-height: 0; gap: 0.4rem; }
+.fan-club-post-card-content-trigger h2 { margin: 0; width: 100%; font-size: 18px; text-align: left; }
+.fan-club-post-card-preview { width: 100%; max-height: 280px; flex: 1; min-height: 0; overflow: hidden; text-align: left; }
+.fan-club-post-card-preview p { margin: 0; text-align: left; }
+.fan-club-post-card-more { color: var(--cta-strong); font-size: 14px; }
+.fan-club-post-reactions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.56rem; border-top: 1px solid rgba(127,127,127,0.24); padding-top: 0.55rem; }
+.fan-club-post-reaction-item { display: inline-flex; align-items: center; gap: 0.3rem; }
+.fan-club-post-reaction-count { min-width: 1.2rem; font-size: 14px; color: rgba(255,255,255,0.75); }
+.demo-avatar-frame, .demo-post-avatar { border-radius: 50%; }
+@media (max-width: 1180px) { .app-shell-body { grid-template-columns: 1fr; } .app-shell-assistant-panel { min-height: auto; } }
+@media (max-width: 980px) { .app-shell-content { margin-left: 0; margin-right: 0; padding-left: 0; } .app-shell-sidebar { display: none; } }
