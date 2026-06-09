@@ -5,29 +5,59 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ClubRail from './ClubRail';
 import ChatRoomView from './ChatRoomView';
 import HeaderActions from './HeaderActions';
-import { buildChatMessages, buildPosts, clubNames, roomNames, supportedLocales, tutorialSteps, tutorialText, type Locale, type ScreenState, type TutorialStepId, uiText } from './mockData';
+import {
+  buildChatMessages,
+  buildPosts,
+  clubNames,
+  roomNames,
+  supportedLocales,
+  tutorialSteps,
+  tutorialText,
+  type Locale,
+  type ScreenState,
+  type TutorialStepId,
+  uiText
+} from './mockData';
 import PostCard from './PostCard';
 import PostModal from './PostModal';
 import TutorialOverlay from './TutorialOverlay';
 
 type TargetKey =
   | 'header-register'
-  | 'header-login'
   | 'register-email'
   | 'register-password'
   | 'register-retype-password'
   | 'register-submit'
   | 'my-fan-clubs'
   | 'first-post'
-  | 'post-modal'
+  | 'post-modal-reactions'
   | 'post-modal-club'
-  | 'dinner-post'
+  | 'dinner-post-reactions'
   | 'chat-open'
   | 'chat-panel'
   | 'translate-toggle'
   | 'chat-composer';
 
 const FINAL_FORM_URL = 'https://forms.gle/1CuJjpjai38GtfHW6';
+
+const stepPlacement: Partial<Record<TutorialStepId, 'top' | 'right' | 'bottom' | 'left' | 'auto'>> = {
+  'click-register': 'bottom',
+  'register-email': 'right',
+  'register-password': 'right',
+  'register-retype-password': 'right',
+  'register-submit': 'top',
+  'my-fan-clubs': 'right',
+  'open-first-post': 'right',
+  'react-concert-post': 'top',
+  'open-fan-club': 'bottom',
+  'react-dinner-post': 'top',
+  'open-chat': 'left',
+  'chat-overview': 'top',
+  'toggle-auto-translate': 'left',
+  'chat-translated': 'top',
+  'send-message': 'top',
+  'final-cta': 'top'
+};
 
 export default function LunarfanDemoExperience() {
   const [locale, setLocale] = useState<Locale>('zh-TW');
@@ -50,16 +80,13 @@ export default function LunarfanDemoExperience() {
 
   const currentStep = tutorialSteps[stepIndex] as TutorialStepId | undefined;
   const isLoggedIn = screen !== 'landing' && screen !== 'register-demo';
-
   const t = useCallback((textMap: Record<Locale, string>) => textMap[locale], [locale]);
-
   const registerTarget = useCallback(
     (key: TargetKey) => (element: HTMLElement | null) => {
       targetsRef.current[key] = element;
     },
     []
   );
-
 
   const targetElement = useMemo(() => {
     switch (currentStep) {
@@ -78,11 +105,11 @@ export default function LunarfanDemoExperience() {
       case 'open-first-post':
         return targetsRef.current['first-post'];
       case 'react-concert-post':
-        return targetsRef.current['post-modal'];
+        return targetsRef.current['post-modal-reactions'];
       case 'open-fan-club':
         return targetsRef.current['post-modal-club'];
       case 'react-dinner-post':
-        return targetsRef.current['dinner-post'];
+        return targetsRef.current['dinner-post-reactions'];
       case 'open-chat':
         return targetsRef.current['chat-open'];
       case 'chat-overview':
@@ -119,7 +146,6 @@ export default function LunarfanDemoExperience() {
     resetDemo();
     setTutorialActive(true);
     setStepIndex(0);
-    setScreen('landing');
   };
 
   useEffect(() => {
@@ -250,53 +276,60 @@ export default function LunarfanDemoExperience() {
   };
 
   const handleTutorialNext = () => {
-    if (currentStep === 'welcome' || currentStep === 'register-email' || currentStep === 'register-password' || currentStep === 'register-retype-password' || currentStep === 'my-fan-clubs' || currentStep === 'chat-overview' || currentStep === 'chat-translated') {
+    if (
+      currentStep === 'welcome' ||
+      currentStep === 'register-email' ||
+      currentStep === 'register-password' ||
+      currentStep === 'register-retype-password' ||
+      currentStep === 'my-fan-clubs' ||
+      currentStep === 'chat-overview' ||
+      currentStep === 'chat-translated'
+    ) {
       nextStep();
     }
   };
 
   const tutorialMessage = useMemo(() => {
     switch (currentStep) {
-      case 'welcome':
-        return t(tutorialText.welcome);
-      case 'click-register':
-        return t(tutorialText.clickRegister);
-      case 'register-email':
-        return t(tutorialText.registerEmail);
-      case 'register-password':
-        return t(tutorialText.registerPassword);
-      case 'register-retype-password':
-        return t(tutorialText.registerRetype);
-      case 'register-submit':
-        return t(tutorialText.completeRegister);
-      case 'my-fan-clubs':
-        return t(tutorialText.myFanClubs);
-      case 'open-first-post':
-        return t(tutorialText.openFirstPost);
-      case 'react-concert-post':
-        return t(tutorialText.reactConcertPost);
-      case 'open-fan-club':
-        return t(tutorialText.openFanClub);
-      case 'react-dinner-post':
-        return t(tutorialText.reactDinnerPost);
-      case 'open-chat':
-        return t(tutorialText.openChat);
-      case 'chat-overview':
-        return t(tutorialText.chatOverview);
-      case 'toggle-auto-translate':
-        return t(tutorialText.toggleAutoTranslate);
-      case 'chat-translated':
-        return t(tutorialText.chatTranslated);
-      case 'send-message':
-        return t(tutorialText.sendMessage);
-      case 'final-cta':
-        return t(tutorialText.finalCta);
-      default:
-        return '';
+      case 'welcome': return t(tutorialText.welcome);
+      case 'click-register': return t(tutorialText.clickRegister);
+      case 'register-email': return t(tutorialText.registerEmail);
+      case 'register-password': return t(tutorialText.registerPassword);
+      case 'register-retype-password': return t(tutorialText.registerRetype);
+      case 'register-submit': return t(tutorialText.completeRegister);
+      case 'my-fan-clubs': return t(tutorialText.myFanClubs);
+      case 'open-first-post': return t(tutorialText.openFirstPost);
+      case 'react-concert-post': return t(tutorialText.reactConcertPost);
+      case 'open-fan-club': return t(tutorialText.openFanClub);
+      case 'react-dinner-post': return t(tutorialText.reactDinnerPost);
+      case 'open-chat': return t(tutorialText.openChat);
+      case 'chat-overview': return t(tutorialText.chatOverview);
+      case 'toggle-auto-translate': return t(tutorialText.toggleAutoTranslate);
+      case 'chat-translated': return t(tutorialText.chatTranslated);
+      case 'send-message': return t(tutorialText.sendMessage);
+      case 'final-cta': return t(tutorialText.finalCta);
+      default: return '';
     }
   }, [currentStep, t]);
 
   const showNextButton = tutorialActive && ['welcome', 'register-email', 'register-password', 'register-retype-password', 'my-fan-clubs', 'chat-overview', 'chat-translated'].includes(currentStep ?? '');
+
+  const appShell = (mainContent: React.ReactNode, assistantContent?: React.ReactNode) => (
+    <div className="mock-auth-app-shell">
+      <aside className="mock-sidebar">
+        <div className="mock-sidebar-logo">LF</div>
+        <div className="mock-sidebar-icons">
+          <button type="button" className="mock-nav-icon active">⌂</button>
+          <button type="button" className="mock-nav-icon">◎</button>
+          <button type="button" className="mock-nav-icon">⌕</button>
+          <button type="button" className="mock-nav-icon">✎</button>
+          <button type="button" className="mock-nav-icon">⋯</button>
+        </div>
+      </aside>
+      <section className="mock-shell-main">{mainContent}</section>
+      {assistantContent ? <aside className="mock-shell-assistant">{assistantContent}</aside> : null}
+    </div>
+  );
 
   return (
     <main className="demo-root">
@@ -309,9 +342,7 @@ export default function LunarfanDemoExperience() {
             <span>{t(uiText.localeLabel)}</span>
             <select value={locale} onChange={(event) => setLocale(event.target.value as Locale)}>
               {supportedLocales.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
+                <option key={item} value={item}>{item}</option>
               ))}
             </select>
           </label>
@@ -320,7 +351,6 @@ export default function LunarfanDemoExperience() {
             registerLabel={t(uiText.register)}
             loginLabel={t(uiText.login)}
             registerRef={registerTarget('header-register')}
-            loginRef={registerTarget('header-login')}
             onRegister={handleHeaderRegister}
             onLogin={handleHeaderLogin}
           />
@@ -333,156 +363,118 @@ export default function LunarfanDemoExperience() {
             <div className="hero-inner">
               <h1>{t(uiText.appTitle)}</h1>
               <p>{t(uiText.heroSubtitle)}</p>
-              <button type="button" className="primary-button hero-demo-button" onClick={startTutorial}>
-                {t(uiText.tryNow)}
-              </button>
+              <button type="button" className="primary-button hero-demo-button" onClick={startTutorial}>{t(uiText.tryNow)}</button>
             </div>
           </section>
-
           <section className="panel reasons-panel" aria-label="Why LunarFan section">
             <div className="reasons-layout">
               <div className="reasons-copy">
                 <h2>為什麼選擇 LunarFan?</h2>
                 <ul>
-                  <li>
-                    <strong>對創作者：</strong>
-                    用最低的門檻建立後援會，操作起來就像一般社群媒體一樣順暢。
-                  </li>
-                  <li>
-                    <strong>對資深粉絲：</strong>
-                    可以建立私人後援會，與志同道合的夥伴盡情討論分享。
-                  </li>
-                  <li>
-                    <strong>對一般粉絲：</strong>
-                    即時掌握創作者的第一手消息，還有不定時的直播與專屬聊天室。
-                  </li>
+                  <li><strong>對創作者：</strong>用最低的門檻建立後援會，操作起來就像一般社群媒體一樣順暢。</li>
+                  <li><strong>對資深粉絲：</strong>可以建立私人後援會，與志同道合的夥伴盡情討論分享。</li>
+                  <li><strong>對一般粉絲：</strong>即時掌握創作者的第一手消息，還有不定時的直播與專屬聊天室。</li>
                 </ul>
               </div>
               <div className="illustration-wrap">
                 <Image src="/home_page_illustration.png" alt="LunarFan community illustration" width={620} height={620} priority />
               </div>
             </div>
-            <footer className="site-footer">
-              <span>聯絡我們: </span>
-              <a className="contact-link" href="mailto:contact.us@lunar.fan">
-                contact.us@lunar.fan
-              </a>
-            </footer>
+            <footer className="site-footer"><span>聯絡我們: </span><a className="contact-link" href="mailto:contact.us@lunar.fan">contact.us@lunar.fan</a></footer>
           </section>
         </>
       ) : null}
 
       {screen === 'register-demo' ? (
         <section className="panel demo-panel centered-panel">
-          <div className="demo-card register-card">
+          <div className="demo-card register-card register-card-compact">
             <div>
               <p className="section-kicker">Demo register</p>
               <h2>{t(uiText.registrationTitle)}</h2>
               <p className="support-copy">{t(uiText.registrationDesc)}</p>
             </div>
             <div className="demo-form-grid">
-              <label className="demo-field" ref={registerTarget('register-email')}>
+              <label className="demo-field">
                 <span>Email</span>
-                <input value={registerForm.email} onChange={(event) => setRegisterForm((prev) => ({ ...prev, email: event.target.value }))} />
+                <input ref={registerTarget('register-email')} value={registerForm.email} onChange={(event) => setRegisterForm((prev) => ({ ...prev, email: event.target.value }))} />
               </label>
-              <label className="demo-field" ref={registerTarget('register-password')}>
+              <label className="demo-field">
                 <span>Password</span>
-                <input type="password" value={registerForm.password} onChange={(event) => setRegisterForm((prev) => ({ ...prev, password: event.target.value }))} />
+                <input ref={registerTarget('register-password')} type="password" value={registerForm.password} onChange={(event) => setRegisterForm((prev) => ({ ...prev, password: event.target.value }))} />
               </label>
-              <label className="demo-field" ref={registerTarget('register-retype-password')}>
+              <label className="demo-field">
                 <span>Retype password</span>
-                <input type="password" value={registerForm.retypePassword} onChange={(event) => setRegisterForm((prev) => ({ ...prev, retypePassword: event.target.value }))} />
+                <input ref={registerTarget('register-retype-password')} type="password" value={registerForm.retypePassword} onChange={(event) => setRegisterForm((prev) => ({ ...prev, retypePassword: event.target.value }))} />
               </label>
             </div>
-            <div ref={registerTarget('register-submit')}>
-              <button type="button" className="primary-button register-submit-button" onClick={handleCompleteRegister}>
-                {t(uiText.completeRegister)}
-              </button>
-            </div>
+            <button ref={registerTarget('register-submit')} type="button" className="primary-button register-submit-button" onClick={handleCompleteRegister}>{t(uiText.completeRegister)}</button>
           </div>
         </section>
       ) : null}
 
-      {screen === 'home-demo' ? (
-        <section className="panel demo-panel home-demo-panel">
-          <div className="demo-home-layout">
-            <div ref={registerTarget('my-fan-clubs')}>
-              <ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} />
-            </div>
-            <section className="demo-post-feed">
-              <div className="section-heading-row">
-                <div>
-                  <p className="section-kicker">Creator update</p>
-                  <h2>{t(uiText.posts)}</h2>
-                </div>
-              </div>
-              <div ref={registerTarget('first-post')}>
-                <PostCard
-                  post={concertPost}
-                  locale={locale}
-                  onOpen={handleOpenPost}
-                  openPostLabel={t(uiText.viewPost)}
-                />
-              </div>
-            </section>
-          </div>
-        </section>
+      {screen === 'home-demo' ? appShell(
+        <section className="demo-post-feed feed-panel-like">
+          <div className="section-heading-row"><div><p className="section-kicker">Creator update</p><h2>{t(uiText.posts)}</h2></div></div>
+          <PostCard post={concertPost} locale={locale} openSurfaceRef={registerTarget('first-post')} onOpen={handleOpenPost} openPostLabel={t(uiText.viewPost)} />
+        </section>,
+        <div ref={registerTarget('my-fan-clubs')}><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
       ) : null}
 
-      {screen === 'fan-club-demo' ? (
-        <section className="panel demo-panel fan-club-panel" style={{ backgroundImage: 'linear-gradient(rgba(10, 35, 62, 0.85), rgba(10, 35, 62, 0.9)), url(/Luna-Background.png)' }}>
-          <div className="fan-club-hero">
-            <Image src="/Luna-Avatar.png" alt="Luna avatar" width={96} height={96} className="fan-club-hero-avatar" />
-            <div>
-              <p className="section-kicker">Fan club</p>
-              <h2>Luna</h2>
-              <p>{t(uiText.fanClubHint)}</p>
-            </div>
-            <div className="fan-club-actions">
-              <button type="button" className="joined-pill">
-                {t(uiText.alreadyJoined)}
-              </button>
-              <button type="button" className="icon-circle-button" ref={registerTarget('chat-open')} onClick={handleOpenChat} aria-label={t(uiText.chat)}>
-                💬
-              </button>
+      {screen === 'fan-club-demo' ? appShell(
+        <section className="fan-club-demo-main">
+          <div className="fan-club-banner-card" style={{ backgroundImage: 'linear-gradient(rgba(10, 35, 62, 0.76), rgba(10, 35, 62, 0.9)), url(/Luna-Background.png)' }}>
+            <div className="fan-club-hero">
+              <Image src="/Luna-Avatar.png" alt="Luna avatar" width={96} height={96} className="fan-club-hero-avatar" />
+              <div>
+                <p className="section-kicker">Fan club</p>
+                <h2>Luna</h2>
+                <p>{t(uiText.fanClubHint)}</p>
+              </div>
+              <div className="fan-club-actions">
+                <button type="button" className="joined-pill">{t(uiText.alreadyJoined)}</button>
+                <button ref={registerTarget('chat-open')} type="button" className="icon-circle-button" onClick={handleOpenChat} aria-label={t(uiText.chat)}>💬</button>
+              </div>
             </div>
           </div>
           <div className="fan-club-post-stack">
-            <PostCard post={concertPost} locale={locale} onReact={handleConcertReaction} interactiveReactions={false} openPostLabel={t(uiText.viewPost)} />
-            <div ref={registerTarget('dinner-post')}>
+            <PostCard post={concertPost} locale={locale} openPostLabel={t(uiText.viewPost)} />
+            <div ref={registerTarget('dinner-post-reactions')}>
               <PostCard post={dinnerPost} locale={locale} onReact={handleDinnerReaction} interactiveReactions openPostLabel={t(uiText.viewPost)} />
             </div>
           </div>
-        </section>
+        </section>,
+        <div className="assistant-summary-card"><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
       ) : null}
 
-      {screen === 'chat-demo' ? (
-        <section className="panel demo-panel chat-demo-panel">
-          <div ref={registerTarget('chat-panel')}>
-            <ChatRoomView
-              locale={locale}
-              rooms={roomNames}
-              messages={chatMessages}
-              autoTranslate={autoTranslate}
-              autoTranslateLabel={t(uiText.autoTranslate)}
-              selectedRoomName={roomNames[0]}
-              inputValue={chatInput}
-              inputPlaceholder={t(uiText.chatInputPlaceholder)}
-              sendLabel={t(uiText.send)}
-              translateToggleRef={translateToggleRef}
-              composerRef={composerRef}
-              onToggleAutoTranslate={handleToggleAutoTranslate}
-              onInputChange={setChatInput}
-              onSend={handleSendMessage}
-            />
-          </div>
-        </section>
+      {screen === 'chat-demo' ? appShell(
+        <div ref={registerTarget('chat-panel')}>
+          <ChatRoomView
+            locale={locale}
+            rooms={roomNames}
+            messages={chatMessages}
+            autoTranslate={autoTranslate}
+            autoTranslateLabel={t(uiText.autoTranslate)}
+            selectedRoomName={roomNames[0]}
+            inputValue={chatInput}
+            inputPlaceholder={t(uiText.chatInputPlaceholder)}
+            sendLabel={t(uiText.send)}
+            translateToggleRef={translateToggleRef}
+            composerRef={composerRef}
+            onToggleAutoTranslate={handleToggleAutoTranslate}
+            onInputChange={setChatInput}
+            onSend={handleSendMessage}
+          />
+        </div>,
+        <div className="assistant-summary-card"><ClubRail title={t(uiText.myFanClubs)} clubs={clubNames} /></div>
       ) : null}
 
       <PostModal
         open={postModalOpen}
         post={concertPost}
         locale={locale}
+        modalRef={registerTarget('post-modal-reactions')}
+        clubButtonRef={registerTarget('post-modal-club')}
+        reactionsRef={registerTarget('post-modal-reactions')}
         onClose={() => setPostModalOpen(false)}
         onReact={handleConcertReaction}
         onOpenClub={handleOpenClub}
@@ -494,6 +486,7 @@ export default function LunarfanDemoExperience() {
         locale={locale}
         message={tutorialMessage}
         targetElement={targetElement ?? undefined}
+        placement={currentStep ? stepPlacement[currentStep] ?? 'auto' : 'auto'}
         showNextButton={showNextButton}
         nextLabel={t(uiText.next)}
         onNext={handleTutorialNext}

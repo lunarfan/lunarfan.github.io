@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import type { Locale } from './mockData';
 
-export type TutorialListenerType = 'click-target' | 'reaction-selected' | 'toggle-on' | 'message-sent' | 'custom';
-
 export type TutorialOverlayProps = {
   open: boolean;
   message: string;
@@ -26,6 +24,34 @@ export type TutorialOverlayProps = {
 type Rect = { top: number; left: number; width: number; height: number };
 
 const margin = 16;
+const bubbleWidth = 420;
+const bubbleHeight = 210;
+
+function resolvePlacement(targetRect: Rect, desired: TutorialOverlayProps['placement']) {
+  const available = {
+    top: targetRect.top,
+    bottom: window.innerHeight - (targetRect.top + targetRect.height),
+    left: targetRect.left,
+    right: window.innerWidth - (targetRect.left + targetRect.width)
+  };
+
+  const fallbackOrder: Array<'bottom' | 'top' | 'right' | 'left'> = ['bottom', 'top', 'right', 'left'];
+  const requested = desired === 'auto' ? null : desired;
+  const needsVertical = bubbleHeight + margin;
+  const needsHorizontal = bubbleWidth + margin;
+
+  if (requested === 'top' && available.top > needsVertical) return 'top';
+  if (requested === 'bottom' && available.bottom > needsVertical) return 'bottom';
+  if (requested === 'left' && available.left > needsHorizontal) return 'left';
+  if (requested === 'right' && available.right > needsHorizontal) return 'right';
+
+  for (const option of fallbackOrder) {
+    if ((option === 'top' || option === 'bottom') && available[option] > needsVertical) return option;
+    if ((option === 'left' || option === 'right') && available[option] > needsHorizontal) return option;
+  }
+
+  return 'bottom';
+}
 
 export default function TutorialOverlay({
   open,
@@ -83,31 +109,26 @@ export default function TutorialOverlay({
       } as const;
     }
 
-    const resolvedPlacement = placement === 'auto' ? 'bottom' : placement;
-    if (resolvedPlacement === 'top') {
-      return {
-        top: Math.max(24, targetRect.top - 220),
-        left: Math.min(window.innerWidth - 420, Math.max(24, targetRect.left)),
-        maxWidth: 'min(90vw, 420px)'
-      };
+    const resolved = resolvePlacement(targetRect, placement);
+    const maxLeft = window.innerWidth - Math.min(window.innerWidth * 0.9, bubbleWidth) - 24;
+    const clampLeft = (value: number) => Math.max(24, Math.min(maxLeft, value));
+
+    if (resolved === 'top') {
+      return { top: Math.max(24, targetRect.top - bubbleHeight - margin), left: clampLeft(targetRect.left), maxWidth: 'min(90vw, 420px)' };
     }
-    if (resolvedPlacement === 'left') {
+    if (resolved === 'left') {
+      return { top: Math.max(24, targetRect.top), left: Math.max(24, targetRect.left - bubbleWidth - margin), maxWidth: 'min(90vw, 420px)' };
+    }
+    if (resolved === 'right') {
       return {
         top: Math.max(24, targetRect.top),
-        left: Math.max(24, targetRect.left - 420 - margin),
-        maxWidth: 'min(90vw, 420px)'
-      };
-    }
-    if (resolvedPlacement === 'right') {
-      return {
-        top: Math.max(24, targetRect.top),
-        left: Math.min(window.innerWidth - 420, targetRect.left + targetRect.width + margin),
+        left: clampLeft(targetRect.left + targetRect.width + margin),
         maxWidth: 'min(90vw, 420px)'
       };
     }
     return {
-      top: Math.min(window.innerHeight - 260, targetRect.top + targetRect.height + margin),
-      left: Math.min(window.innerWidth - 420, Math.max(24, targetRect.left)),
+      top: Math.min(window.innerHeight - bubbleHeight - 24, targetRect.top + targetRect.height + margin),
+      left: clampLeft(targetRect.left),
       maxWidth: 'min(90vw, 420px)'
     };
   }, [placement, targetRect]);
@@ -127,21 +148,10 @@ export default function TutorialOverlay({
           />
           <div
             className="tutorial-mask tutorial-mask-right"
-            style={{
-              top: Math.max(0, targetRect.top - margin),
-              left: targetRect.left + targetRect.width + margin,
-              right: 0,
-              height: targetRect.height + margin * 2
-            }}
+            style={{ top: Math.max(0, targetRect.top - margin), left: targetRect.left + targetRect.width + margin, right: 0, height: targetRect.height + margin * 2 }}
           />
-          <div
-            className="tutorial-mask tutorial-mask-bottom"
-            style={{ top: targetRect.top + targetRect.height + margin, bottom: 0 }}
-          />
-          <div
-            className="tutorial-focus-ring"
-            style={{ top: targetRect.top - 8, left: targetRect.left - 8, width: targetRect.width + 16, height: targetRect.height + 16 }}
-          />
+          <div className="tutorial-mask tutorial-mask-bottom" style={{ top: targetRect.top + targetRect.height + margin, bottom: 0 }} />
+          <div className="tutorial-focus-ring" style={{ top: targetRect.top - 8, left: targetRect.left - 8, width: targetRect.width + 16, height: targetRect.height + 16 }} />
         </>
       ) : (
         <div className="tutorial-mask tutorial-mask-full" />
