@@ -231,12 +231,6 @@ export const tutorialText = {
     ja: 'コンサートが待ち遠しいですね。Luna のアイコンを押して、ファンクラブの最新情報を見に行きましょう。',
     ko: '콘서트가 정말 기대되죠. Luna의 아바타를 눌러 팬클럽에 들어가 더 많은 소식을 확인해 보세요.'
   },
-  reactDinnerPost: {
-    'zh-TW': 'Luna 剛剛吃了一頓好吃的晚餐，傳達你的心情。',
-    en: 'Luna just had a great dinner. Pick a reaction and share how you feel.',
-    ja: 'Luna が美味しい夕食を食べたみたいです。気持ちをリアクションで伝えましょう。',
-    ko: 'Luna가 맛있는 저녁을 먹었대요. 지금 기분을 반응으로 남겨 보세요.'
-  },
   openChat: {
     'zh-TW': '到聊天室與其他粉絲分享心情吧。',
     en: 'Head to the chat room and share the excitement with other fans.',
@@ -457,7 +451,6 @@ export const tutorialSteps = [
   'open-first-post',
   'react-concert-post',
   'open-fan-club',
-  'react-dinner-post',
   'open-chat',
   'chat-overview',
   'toggle-auto-translate',

@@ -180,9 +180,6 @@ export default function ChatRoomView({
             </div>
             <div ref={composerRef} className="chat-composer">
               <div className="chat-composer-row">
-                <button type="button" className="chat-composer-attach" aria-label="Attach image">
-                  <DemoIcon name="paperclip" size={18} />
-                </button>
                 <input
                   className="chat-composer-input"
                   value={inputValue}

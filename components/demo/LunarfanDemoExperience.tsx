@@ -29,7 +29,6 @@ type TargetKey =
   | 'first-post'
   | 'post-modal-reactions'
   | 'post-modal-club'
-  | 'dinner-post-reactions'
   | 'chat-open'
   | 'chat-panel'
   | 'translate-toggle'
@@ -43,7 +42,6 @@ const stepPlacement: Partial<Record<TutorialStepId, 'top' | 'right' | 'bottom' |
   'open-first-post': 'right',
   'react-concert-post': 'top',
   'open-fan-club': 'bottom',
-  'react-dinner-post': 'top',
   'open-chat': 'left',
   'chat-overview': 'top',
   'toggle-auto-translate': 'left',
@@ -92,8 +90,6 @@ export default function LunarfanDemoExperience() {
         return targetsRef.current['post-modal-reactions'];
       case 'open-fan-club':
         return targetsRef.current['post-modal-club'];
-      case 'react-dinner-post':
-        return targetsRef.current['dinner-post-reactions'];
       case 'open-chat':
         return targetsRef.current['chat-open'];
       case 'chat-overview':
@@ -198,9 +194,6 @@ export default function LunarfanDemoExperience() {
         reaction.id === reactionId ? { ...reaction, count: reaction.count + 1 } : reaction
       )
     }));
-    if (tutorialActive && currentStep === 'react-dinner-post') {
-      nextStep();
-    }
   };
 
   const handleOpenPost = () => {
@@ -278,7 +271,6 @@ export default function LunarfanDemoExperience() {
       case 'open-first-post': return t(tutorialText.openFirstPost);
       case 'react-concert-post': return t(tutorialText.reactConcertPost);
       case 'open-fan-club': return t(tutorialText.openFanClub);
-      case 'react-dinner-post': return t(tutorialText.reactDinnerPost);
       case 'open-chat': return t(tutorialText.openChat);
       case 'chat-overview': return t(tutorialText.chatOverview);
       case 'toggle-auto-translate': return t(tutorialText.toggleAutoTranslate);
@@ -447,7 +439,7 @@ export default function LunarfanDemoExperience() {
             </div>
 
             <section className="fan-club-home-posts">
-              <PostCard post={dinnerPost} locale={locale} reactionAreaRef={setTargetRef('dinner-post-reactions')} onOpenClub={handleOpenClub} onReact={handleDinnerReaction} interactiveReactions />
+              <PostCard post={dinnerPost} locale={locale} onOpenClub={handleOpenClub} onReact={handleDinnerReaction} interactiveReactions />
               <PostCard post={concertPost} locale={locale} onOpenClub={handleOpenClub} onReact={handleConcertReaction} interactiveReactions />
             </section>
           </div>
