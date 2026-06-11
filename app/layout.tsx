@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './styles/home-auth.css';
+import './styles/my-fan-clubs.css';
+import './styles/fan-clubs.css';
+import './styles/chat.css';
 
 export const metadata: Metadata = {
   title: 'LunarFan',

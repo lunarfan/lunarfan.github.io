@@ -1,0 +1,119 @@
+.my-fan-clubs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.my-fan-clubs-header h2 {
+  margin: 0;
+  font-size: var(--font-size-h3);
+}
+
+.my-fan-clubs-create {
+  position: relative;
+}
+
+.my-fan-clubs-create-menu {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  right: 0;
+  min-width: 172px;
+  border-radius: 10px;
+  border: 1px solid var(--feature-menu-border);
+  background: var(--feature-menu-bg);
+  backdrop-filter: blur(6px);
+  padding: 0.28rem;
+  z-index: 8;
+}
+
+.my-fan-clubs-create-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  text-align: left;
+  border-radius: 8px;
+  padding: 0.45rem 0.53rem;
+  cursor: pointer;
+}
+
+.my-fan-clubs-create-item:hover {
+  background: var(--feature-menu-hover-bg);
+}
+
+.my-fan-clubs-list {
+  margin-top: 0.72rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.62rem;
+  overflow-y: auto;
+  min-height: 0;
+  padding-right: 0.18rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.my-fan-clubs-list::-webkit-scrollbar {
+  display: none;
+}
+
+.my-fan-clubs-item {
+  border: 1px solid var(--feature-card-border);
+  border-radius: 12px;
+  background: var(--feature-card-bg);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.64rem;
+}
+
+.my-fan-clubs-item:hover {
+  border-color: var(--feature-card-hover-border);
+}
+
+.my-fan-clubs-avatar {
+  flex-shrink: 0;
+}
+
+.my-fan-clubs-meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.16rem;
+}
+
+.my-fan-clubs-name {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.my-fan-clubs-status {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+}
+
+.my-fan-clubs-close {
+  display: none;
+}
+
+.settings-placeholder-assistant-copy {
+  margin-top: 0.8rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1024px) {
+  .my-fan-clubs-close {
+    display: inline-flex;
+    position: absolute;
+    top: 0.72rem;
+    right: 0.75rem;
+  }
+
+  .my-fan-clubs-header {
+    padding-right: 2.6rem;
+  }
+}

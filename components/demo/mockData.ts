@@ -1,5 +1,5 @@
 export type Locale = 'zh-TW' | 'en' | 'ja' | 'ko';
-export type ScreenState = 'landing' | 'register-demo' | 'home-demo' | 'fan-club-demo' | 'chat-demo';
+export type ScreenState = 'landing' | 'home-demo' | 'fan-club-demo' | 'chat-demo';
 export type MessageLanguage = Locale;
 
 export type LocalizedText = Record<Locale, string>;
@@ -11,7 +11,7 @@ export type DemoPost = {
   timeLabel: LocalizedText;
   title: LocalizedText;
   body: LocalizedText;
-  reactions: Array<{ id: string; emoji: string; count: number }>;
+  reactions: Array<{ id: string; emoji: string; icon: 'thumbUp' | 'heart' | 'emoticon' | 'handshake'; label: LocalizedText; count: number }>;
 };
 
 export type ChatMessage = {
@@ -45,23 +45,17 @@ export const uiText = {
     ja: '先行体験',
     ko: '미리 체험하기'
   },
-  register: {
-    'zh-TW': '註冊',
-    en: 'Register',
-    ja: '登録',
-    ko: '회원가입'
+  fillform: {
+    'zh-TW': '填寫表單',
+    en: 'Fill the form',
+    ja: 'フォームに記入',
+    ko: '폼 작성하기'
   },
   login: {
     'zh-TW': '登入',
     en: 'Log in',
     ja: 'ログイン',
     ko: '로그인'
-  },
-  completeRegister: {
-    'zh-TW': '完成註冊',
-    en: 'Finish registration',
-    ja: '登録を完了',
-    ko: '가입 완료'
   },
   myFanClubs: {
     'zh-TW': '我的後援會',
@@ -93,12 +87,6 @@ export const uiText = {
     ja: '参加中',
     ko: '가입됨'
   },
-  chat: {
-    'zh-TW': '聊天室',
-    en: 'Chat',
-    ja: 'チャット',
-    ko: '채팅'
-  },
   next: {
     'zh-TW': '下一步',
     en: 'Next',
@@ -129,35 +117,80 @@ export const uiText = {
     ja: '言語',
     ko: '언어'
   },
-  postModalReactionTitle: {
-    'zh-TW': '留下你的心情',
-    en: 'Leave a reaction',
-    ja: 'リアクションを残そう',
-    ko: '마음을 남겨 보세요'
-  },
   chatInputPlaceholder: {
     'zh-TW': '輸入訊息...',
     en: 'Type a message...',
     ja: 'メッセージを入力...',
     ko: '메시지를 입력하세요...'
   },
-  viewPost: {
-    'zh-TW': '查看貼文',
-    en: 'Open post',
-    ja: '投稿を見る',
-    ko: '게시물 보기'
+  home: {
+    'zh-TW': '首頁',
+    en: 'Home',
+    ja: 'ホーム',
+    ko: '홈'
   },
-  registrationTitle: {
-    'zh-TW': '建立你的 LunarFan 帳號',
-    en: 'Create your LunarFan account',
-    ja: 'LunarFan アカウントを作成',
-    ko: 'LunarFan 계정 만들기'
+  explore: {
+    'zh-TW': '探索',
+    en: 'Explore',
+    ja: '探索',
+    ko: '탐색'
   },
-  registrationDesc: {
-    'zh-TW': '這個 demo 畫面會省略驗證流程，快速帶你進入產品體驗。',
-    en: 'This demo skips verification to get you into the product experience faster.',
-    ja: 'このデモでは認証手順を省略して、すぐに体験へ進めます。',
-    ko: '이 데모는 인증 과정을 생략하고 바로 체험 화면으로 안내합니다.'
+  search: {
+    'zh-TW': '搜尋',
+    en: 'Search',
+    ja: '検索',
+    ko: '검색'
+  },
+  post_nav: {
+    'zh-TW': '發文',
+    en: 'Post',
+    ja: '投稿',
+    ko: '게시'
+  },
+  chat: {
+    'zh-TW': '聊天室',
+    en: 'Chat',
+    ja: 'チャット',
+    ko: '채팅'
+  },
+  setting: {
+    'zh-TW': '設定',
+    en: 'Settings',
+    ja: '設定',
+    ko: '설정'
+  },
+  logout: {
+    'zh-TW': '登出',
+    en: 'Log out',
+    ja: 'ログアウト',
+    ko: '로그아웃'
+  }
+} satisfies Record<string, LocalizedText>;
+
+const reactionLabels = {
+  like: {
+    'zh-TW': '讚',
+    en: 'Like',
+    ja: 'いいね',
+    ko: '좋아요'
+  },
+  love: {
+    'zh-TW': '喜歡',
+    en: 'Love',
+    ja: '好き',
+    ko: '좋아요'
+  },
+  haha: {
+    'zh-TW': '開心',
+    en: 'Haha',
+    ja: '楽しい',
+    ko: '웃겨요'
+  },
+  hug: {
+    'zh-TW': '抱抱',
+    en: 'Hug',
+    ja: 'ハグ',
+    ko: '안아줘요'
   }
 } satisfies Record<string, LocalizedText>;
 
@@ -168,35 +201,11 @@ export const tutorialText = {
     ja: 'LunarFan へようこそ。ここでは推しのファンクラブを作ったり、ほかのファンクラブに参加して仲間と交流したりできます。',
     ko: 'LunarFan에 오신 것을 환영해요. 여기서는 좋아하는 크리에이터의 팬클럽을 만들거나 다른 팬클럽에 참여해 함께 이야기할 수 있어요.'
   },
-  clickRegister: {
-    'zh-TW': '首先，點擊註冊按鈕來新增一個帳號。',
-    en: 'First, click the register button to create your account.',
-    ja: 'まずは登録ボタンを押してアカウントを作成しましょう。',
-    ko: '먼저 회원가입 버튼을 눌러 계정을 만들어 볼게요.'
-  },
-  registerEmail: {
-    'zh-TW': '輸入你的常用信箱。',
-    en: 'Enter the email you use most often.',
-    ja: '普段使っているメールアドレスを入力してください。',
-    ko: '자주 사용하는 이메일 주소를 입력해 주세요.'
-  },
-  registerPassword: {
-    'zh-TW': '設定一個密碼。',
-    en: 'Set a password for your account.',
-    ja: 'アカウントのパスワードを設定します。',
-    ko: '계정에 사용할 비밀번호를 설정해 주세요.'
-  },
-  registerRetype: {
-    'zh-TW': '再輸入一次密碼。',
-    en: 'Type the password one more time.',
-    ja: '確認のため、もう一度パスワードを入力してください。',
-    ko: '확인을 위해 비밀번호를 한 번 더 입력해 주세요.'
-  },
-  completeRegister: {
-    'zh-TW': '按下註冊按鈕就完成註冊了。',
-    en: 'Press the button and your registration is complete.',
-    ja: 'このボタンを押せば登録完了です。',
-    ko: '이 버튼을 누르면 가입이 완료돼요.'
+  clickLogin: {
+    'zh-TW': '首先，點擊登入，直接進入 LunarFan 的登入後首頁。',
+    en: 'First, click log in to enter the LunarFan signed-in home.',
+    ja: 'まずログインを押して、LunarFan のログイン後ホームへ進みましょう。',
+    ko: '먼저 로그인을 눌러 LunarFan 로그인 후 홈으로 들어가 볼게요.'
   },
   myFanClubs: {
     'zh-TW': '這裡會顯示你加入的所有後援會，右上角 + 號可以自己建立後援會。',
@@ -268,19 +277,14 @@ export const tutorialText = {
 
 export const clubNames = [
   'Luna',
-  '周杰倫台北後援會',
-  '木村拓哉東京ファンクラブ',
-  'BLACKPINK 서울 팬클럽',
-  'Taylor Swift New York Fan Club'
 ];
 
-export const roomNames = [
-  'Luna 的午夜閒聊',
-  '周杰倫台北後援會聊天室',
-  '木村拓哉東京ファンクラブのチャット',
-  'BLACKPINK 서울 팬클럽 채팅방',
-  'Taylor Swift New York Fan Club Chat'
-];
+export const roomName = {
+  'zh-TW': 'Luna 的午夜閒聊',
+  en: 'Luna’s midnight chat',
+  ja: 'Luna の真夜中のチャット',
+  ko: 'Luna의 한밤중 수다방'
+};
 
 export function getDemoDateVariants(monthsFromNow = 3): LocalizedText {
   const date = new Date();
@@ -301,10 +305,10 @@ export function buildPosts(): { concertPost: DemoPost; dinnerPost: DemoPost } {
       author: 'Luna',
       clubName: 'Luna',
       timeLabel: {
-        'zh-TW': '剛剛',
-        en: 'Just now',
-        ja: 'たった今',
-        ko: '방금 전'
+        'zh-TW': '1 天前',
+        en: '1 day ago',
+        ja: '1日前',
+        ko: '1일 전'
       },
       title: {
         'zh-TW': `我的第一場演唱會將在 ${dates['zh-TW']} 舉辦`,
@@ -319,9 +323,9 @@ export function buildPosts(): { concertPost: DemoPost; dinnerPost: DemoPost } {
         ko: '오늘부터 무대 콘셉트와 굿즈 힌트, 그리고 요즘 자주 듣는 노래들을 하나씩 공개할게요. 여러분의 응원을 함께 기억할 수 있는 밤으로 만들고 싶어요. 기대하고 있다면 꼭 함께해 주세요.'
       },
       reactions: [
-        { id: 'heart', emoji: '❤️', count: 128 },
-        { id: 'spark', emoji: '✨', count: 84 },
-        { id: 'cry', emoji: '😭', count: 61 }
+        { id: 'like', emoji: '👍', icon: 'thumbUp', label: reactionLabels.like, count: 128 },
+        { id: 'love', emoji: '❤️', icon: 'heart', label: reactionLabels.love, count: 84 },
+        { id: 'haha', emoji: '😊', icon: 'emoticon', label: reactionLabels.haha, count: 61 }
       ]
     },
     dinnerPost: {
@@ -329,10 +333,10 @@ export function buildPosts(): { concertPost: DemoPost; dinnerPost: DemoPost } {
       author: 'Luna',
       clubName: 'Luna',
       timeLabel: {
-        'zh-TW': '剛更新',
-        en: 'Just updated',
-        ja: '更新したばかり',
-        ko: '방금 업데이트'
+        'zh-TW': '剛剛',
+        en: 'Just now',
+        ja: 'たった今',
+        ko: '방금 전'
       },
       title: {
         'zh-TW': 'Luna 的晚餐大餐',
@@ -347,9 +351,9 @@ export function buildPosts(): { concertPost: DemoPost; dinnerPost: DemoPost } {
         ko: '오늘 리허설이 끝나고 정말 기다리던 푸짐한 저녁을 먹었어요. 따끈한 오븐 요리와 갓 구운 빵, 달콤한 탄산음료까지 있어서 하루의 피로가 다 풀렸어요. 여러분은 오늘 저녁으로 무엇을 먹었나요?'
       },
       reactions: [
-        { id: 'yum', emoji: '🤤', count: 97 },
-        { id: 'clap', emoji: '👏', count: 48 },
-        { id: 'chef', emoji: '🍽️', count: 36 }
+        { id: 'like', emoji: '👍', icon: 'thumbUp', label: reactionLabels.like, count: 97 },
+        { id: 'love', emoji: '❤️', icon: 'heart', label: reactionLabels.love, count: 48 },
+        { id: 'hug', emoji: '🫂', icon: 'handshake', label: reactionLabels.hug, count: 36 }
       ]
     }
   };
@@ -392,8 +396,8 @@ const messageVariants: LocalizedText[] = [
     ko: 'Luna가 먹은 저녁이 정말 맛있어 보였어요.'
   },
   {
-    'zh-TW': '希望演唱會有中文版應援口號。',
-    en: 'I hope there will be an English fan chant guide too.',
+    'zh-TW': '希望演唱會有應援口號。',
+    en: 'I hope there will be a fan chant guide too.',
     ja: '応援コールのガイドがあったら嬉しいです。',
     ko: '응원 구호 가이드가 있으면 좋겠어요.'
   },
@@ -448,11 +452,7 @@ export function buildChatMessages(): ChatMessage[] {
 
 export const tutorialSteps = [
   'welcome',
-  'click-register',
-  'register-email',
-  'register-password',
-  'register-retype-password',
-  'register-submit',
+  'click-login',
   'my-fan-clubs',
   'open-first-post',
   'react-concert-post',

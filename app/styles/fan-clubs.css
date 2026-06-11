@@ -1,0 +1,761 @@
+.fan-club-home-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.fan-club-home-banner-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.fan-club-home-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: none;
+}
+
+.fan-club-home-header-copy h1 {
+  margin: 0;
+  font-size: var(--font-size-h2);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.fan-club-home-header-topline {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 0.45rem;
+  column-gap: 0.75rem;
+}
+
+.fan-club-home-header-subline {
+  margin: 0.2rem 0 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-small);
+}
+
+.fan-club-home-header-membership {
+  margin-top: 0;
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+
+.fan-club-home-header-actions {
+  margin-top: 0.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.fan-club-home-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+}
+
+.fan-club-status-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  border: 1px solid var(--color-border-strong);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  width: 100%;
+}
+
+.fan-club-status-notice-error {
+  border-color: color-mix(in srgb, #d96c6c 72%, var(--color-border-strong));
+}
+
+.fan-club-status-notice-warning {
+  border-color: color-mix(in srgb, #c48a00 72%, var(--color-border-strong));
+}
+
+.fan-club-status-notice-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fan-club-status-notice-copy strong {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body);
+}
+
+.fan-club-status-notice-copy p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.fan-club-status-notice-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fan-club-review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fan-club-membership-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fan-club-home-header-membership .fan-club-membership-bar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.fan-club-membership-preview {
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  width: fit-content;
+}
+
+.fan-club-membership-preview-avatar {
+  margin-right: -0.25rem;
+  border: 2px solid rgba(9, 31, 54, 0.9);
+}
+
+.fan-club-membership-preview:disabled {
+  opacity: 0.6;
+}
+
+.fan-club-membership-action {
+  display: inline-flex;
+  justify-content: flex-start;
+}
+
+.fan-club-member-avatar-sm.ui-avatar-sm {
+  width: 42px;
+  height: 42px;
+}
+
+.fan-club-member-avatar-sm .ui-avatar-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.fan-club-member-list-modal {
+  width: min(620px, 92vw);
+}
+
+.fan-club-member-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.fan-club-member-list-visible-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.fan-club-member-list {
+  max-height: 360px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.44rem;
+  padding-right: 0.2rem;
+}
+
+.fan-club-member-row {
+  border: 1px solid var(--feature-card-border);
+  border-radius: 10px;
+  background: var(--feature-card-bg);
+  padding: 0.5rem 0.55rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.48rem;
+}
+
+.fan-club-member-row-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+}
+
+.fan-club-member-row-copy strong {
+  font-size: var(--font-size-small);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fan-club-member-row-copy span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.fan-club-member-list-empty,
+.fan-club-member-list-loading {
+  margin: 0;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.4rem 0.2rem;
+}
+
+.fan-club-subscription-plan-list,
+.fan-club-manage-plan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.fan-club-subscription-plan-item {
+  border: 1px solid var(--feature-plan-border);
+  border-radius: 10px;
+  background: var(--feature-plan-bg);
+  padding: 0.52rem 0.56rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.45rem;
+}
+
+.fan-club-subscription-plan-card {
+  grid-template-columns: 1fr;
+  min-height: 288px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.fan-club-subscription-plan-preview {
+  grid-template-columns: 1fr;
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+}
+
+.fan-club-subscription-plan-preview small {
+  display: none;
+}
+
+.fan-club-subscription-plan-preview strong {
+  font-size: var(--font-size-h3);
+}
+
+.fan-club-subscription-plan-preview em {
+  font-size: var(--font-size-body);
+}
+
+.fan-club-subscription-modal.ui-modal,
+.fan-club-manage-subscription-modal.ui-modal {
+  width: min(80vw, 1080px);
+}
+
+.fan-club-subscription-modal .ui-modal-content,
+.fan-club-manage-subscription-modal .ui-modal-content {
+  min-height: 448px;
+}
+
+.fan-club-subscription-plan-item span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.fan-club-subscription-plan-item em {
+  font-style: normal;
+  color: var(--text-muted);
+  font-size: var(--font-size-small);
+}
+
+.fan-club-subscription-plan-item small {
+  color: var(--text-muted);
+  white-space: pre-wrap;
+}
+
+.fan-club-subscription-current-note {
+  margin: 0.45rem 0 0;
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+  text-align: right;
+}
+
+.fan-club-manage-plan-item {
+  border: 1px solid var(--feature-manage-plan-border);
+  border-radius: 10px;
+  background: var(--feature-manage-plan-bg);
+  padding: 0.72rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.62rem;
+  min-height: 288px;
+}
+
+.fan-club-manage-plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.fan-club-manage-plan-header strong {
+  font-size: var(--font-size-h3);
+}
+
+.fan-club-manage-plan-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.fan-club-plan-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fan-club-plan-field span {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+}
+
+.fan-club-post-card {
+  border: 1px solid var(--feature-post-card-border);
+  border-radius: 12px;
+  background: var(--feature-post-card-bg);
+  padding: 0.7rem 0.75rem;
+  height: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.fan-club-post-card-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.62rem;
+}
+
+.fan-club-post-card-head-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+}
+
+.fan-club-post-card-head-copy strong {
+  font-size: var(--font-size-body);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.fan-club-post-card-head-copy span {
+  color: var(--text-muted);
+  font-size: var(--font-size-small);
+}
+
+.fan-club-post-card-content-trigger {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex: 1;
+  min-height: 0;
+  gap: 0.4rem;
+}
+
+.fan-club-post-card-content-trigger:hover h2 {
+  text-decoration: underline;
+  text-decoration-color: rgba(126, 214, 209, 0.7);
+}
+
+.fan-club-post-card-content-trigger h2 {
+  margin: 0;
+  width: 100%;
+  font-size: var(--font-size-h3);
+  text-align: left;
+}
+
+.fan-club-post-card-preview {
+  width: 100%;
+  max-height: 280px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  text-align: left;
+}
+
+.fan-club-post-card-preview p {
+  margin: 0;
+  text-align: left;
+}
+
+.fan-club-post-card-more {
+  color: var(--color-primary);
+  font-size: var(--font-size-small);
+}
+
+.fan-club-post-blocks {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.56rem;
+  margin-top: 0.26rem;
+  text-align: left;
+}
+
+.fan-club-post-media-block {
+  margin: 0;
+  border: 1px solid var(--feature-post-media-border);
+  border-radius: 10px;
+  background: var(--feature-post-media-bg);
+  overflow: hidden;
+}
+
+.fan-club-post-media-block img,
+.fan-club-post-media-block video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.fan-club-post-reactions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.56rem;
+  border-top: 1px solid rgba(127, 127, 127, 0.24);
+  padding-top: 0.55rem;
+}
+
+.fan-club-post-reaction-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.fan-club-post-reaction-count {
+  min-width: 1.2rem;
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+}
+
+.fan-club-post-detail-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  height: 100%;
+  min-height: 0;
+  text-align: left;
+}
+
+.fan-club-post-detail-scroll,
+.fan-club-post-detail-scroll p,
+.fan-club-post-detail-scroll h1,
+.fan-club-post-detail-scroll h2,
+.fan-club-post-detail-scroll h3 {
+  text-align: left;
+}
+
+.fan-club-post-detail-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 0.56rem;
+}
+
+.fan-club-post-detail-modal p {
+  margin: 0;
+}
+
+.fan-club-post-dialog {
+  width: min(100%, 820px);
+  height: min(78vh, 720px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fan-club-post-dialog .ui-modal-content {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.fan-club-post-detail-reactions .fan-club-post-reactions {
+  margin: 0;
+}
+
+.fan-club-post-detail-reactions {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.fan-club-post-card-skeleton {
+  pointer-events: none;
+}
+
+.fan-club-post-card-head-copy-skeleton {
+  gap: 0.28rem;
+}
+
+.fan-club-post-card-content-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+}
+
+.fan-club-post-reactions-skeleton {
+  justify-content: space-between;
+}
+
+.fan-club-home-assistant {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.fan-club-home-assistant p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.settings-gender-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
+  gap: 0.6rem;
+}
+
+.settings-save-btn {
+  margin-top: 0.74rem;
+}
+
+.fan-club-application-layout {
+  min-height: 520px;
+}
+
+.fan-club-application-editor-modal.ui-modal {
+  width: min(92vw, 740px);
+}
+
+.fan-club-application-editor-modal .ui-modal-content {
+  max-height: none;
+  overflow: visible;
+}
+
+.fan-club-application-editor-modal .settings-profile-layout {
+  grid-template-columns: 3fr 7fr;
+  align-items: start;
+}
+
+.fan-club-application-editor-modal .fan-club-application-avatar-column {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0.2rem;
+}
+
+.fan-club-application-editor-modal .fan-club-application-layout {
+  min-height: auto;
+}
+
+.fan-club-application-editor-modal .fan-club-application-form .ui-input {
+  width: 50%;
+}
+
+.fan-club-application-avatar-column {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.fan-club-application-form {
+  min-width: 0;
+}
+
+.fan-club-application-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.fan-club-application-checkbox {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  color: var(--text-muted);
+  font-size: var(--font-size-small);
+}
+
+.fan-club-application-checkbox input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+}
+
+.field-hint {
+  margin: 0.08rem 0 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-small);
+}
+
+.field-hint-error {
+  color: var(--color-danger);
+}
+
+@media (max-width: 1024px) {
+  .fan-club-home-header {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .fan-club-home-header-topline {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    row-gap: 0.45rem;
+    column-gap: 0.75rem;
+  }
+
+  .fan-club-home-header-copy h1 {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .fan-club-home-header-membership {
+    margin-top: 0;
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100%;
+  }
+
+  .fan-club-home-header-membership .fan-club-membership-bar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+  }
+
+  .fan-club-home-header-membership .fan-club-membership-action {
+    display: inline-flex;
+    justify-content: flex-end;
+  }
+
+  .fan-club-home-header .ui-avatar-lg {
+    width: 104px;
+    height: 104px;
+  }
+
+  .fan-club-home-header .ui-avatar-lg .ui-avatar-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .app-shell-banner {
+    min-height: 128px;
+  }
+
+  .fan-club-post-detail-modal {
+    max-height: calc(100vh - 150px);
+  }
+
+  .fan-club-post-dialog {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .fan-club-post-dialog .ui-modal-content {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .fan-club-application-name-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fan-club-application-checkbox {
+    align-self: flex-start;
+  }
+
+  .fan-club-application-modal-actions {
+    flex-direction: column;
+  }
+
+  .fan-club-application-modal-actions .ui-button {
+    width: 100%;
+  }
+
+  .fan-club-home-shell {
+    --app-shell-mobile-assistant-width: 100vw;
+  }
+
+  .fan-club-home-shell .app-shell-assistant-panel {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 640px) {
+  .fan-club-subscription-modal.ui-modal,
+  .fan-club-manage-subscription-modal.ui-modal {
+    width: min(96vw, 420px);
+  }
+
+  .fan-club-subscription-modal .ui-modal-content,
+  .fan-club-manage-subscription-modal .ui-modal-content {
+    min-height: 388px;
+  }
+
+  .fan-club-subscription-plan-preview strong,
+  .fan-club-subscription-plan-preview em {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fan-club-manage-plan-item {
+    min-height: 246px;
+  }
+}

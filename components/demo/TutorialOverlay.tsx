@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import type { Locale } from './mockData';
+import { supportedLocales, type Locale } from './mockData';
 
 export type TutorialOverlayProps = {
   open: boolean;
@@ -19,6 +19,7 @@ export type TutorialOverlayProps = {
   onNext?: () => void;
   onBackToHome?: () => void;
   onOpenForm?: () => void;
+  onLocaleChange?: (locale: Locale) => void;
 };
 
 type Rect = { top: number; left: number; width: number; height: number };
@@ -67,7 +68,8 @@ export default function TutorialOverlay({
   openFormLabel,
   onNext,
   onBackToHome,
-  onOpenForm
+  onOpenForm,
+  onLocaleChange
 }: TutorialOverlayProps) {
   const [targetRect, setTargetRect] = useState<Rect | null>(null);
 
@@ -162,7 +164,14 @@ export default function TutorialOverlay({
           <Image src="/Luna-Avatar.png" alt="Luna avatar" width={56} height={56} className="tutorial-luna-avatar" priority />
           <div>
             <div className="tutorial-bubble-kicker">Luna</div>
-            <div className="tutorial-bubble-locale">{locale}</div>
+            <label className="tutorial-locale-picker">
+              <span className="sr-only">Language</span>
+              <select value={locale} onChange={(event) => onLocaleChange?.(event.target.value as Locale)}>
+                {supportedLocales.map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))}
+              </select>
+            </label>
           </div>
         </div>
         <p className="tutorial-bubble-message">{message}</p>
