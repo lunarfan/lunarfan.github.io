@@ -16,8 +16,8 @@ type ChatRoomViewProps = {
   inputValue: string;
   inputPlaceholder: string;
   sendLabel: string;
-  translateToggleRef?: RefObject<HTMLButtonElement>;
-  composerRef?: RefObject<HTMLDivElement>;
+  translateToggleRef?: RefObject<HTMLButtonElement | null>;
+  composerRef?: RefObject<HTMLDivElement | null>;
   onToggleAutoTranslate: () => void;
   onInputChange: (value: string) => void;
   onSend: () => void;
